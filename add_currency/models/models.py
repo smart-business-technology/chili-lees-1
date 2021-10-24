@@ -10,7 +10,3 @@ class add_currency(models.Model):
     wage = fields.Float('Wage', required=True, tracking=True, help="Employee's monthly gross wage.")
 
 
-class HREmployee(models.Model):
-    _inherit = 'hr.employee'
-
-    pre_job = fields.Char(string="Previous Job ", required=False, )
