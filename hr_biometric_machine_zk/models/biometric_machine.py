@@ -178,7 +178,7 @@ class zkMachine(models.Model):
                         date = tz.normalize(tz.localize(date1)).astimezone(pytz.utc).strftime("%Y-%m-%d %H:%M:%S")
                         attend_id = False
                         print(employee_id.name, date, date1, attendance.punch)
-                        if not attendance.punch:
+                        if attendance.punch:
                             attendance_id = attendance_obj.search(
                                 [('employee_id', '=', employee_id.id), ('check_in', '=', str(date))])
                             if not attendance_id:
