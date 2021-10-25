@@ -183,7 +183,7 @@ class zkMachine(models.Model):
                                 [('employee_id', '=', employee_id.id), ('check_in', '=', str(date))])
                             if not attendance_id:
                                 attend_id = attendance_obj.create({'check_in': date, 'employee_id': employee_id.id})
-                        if attendance.punch:
+                        if True:
                             attendance_id = attendance_obj.search(
                                 [('employee_id', '=', employee_id.id), ('check_out', '=', str(date))])
                             if not attendance_id:
