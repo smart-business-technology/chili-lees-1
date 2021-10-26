@@ -167,6 +167,9 @@ class zkMachine(models.Model):
                 conn.disable_device()
                 attendances = conn.get_attendance()
                 print(attendances)
+                _logger.info(len(attendances))
+                _logger.info(attendances)
+
                 for attendance in attendances:
                     employee_location_line = employee_location_line_obj.search(
                         [("zk_num", "=", int(attendance.user_id)), ('location_id', '=', machine.location_id.id),
