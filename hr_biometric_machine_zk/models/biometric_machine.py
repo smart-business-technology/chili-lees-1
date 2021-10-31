@@ -179,6 +179,11 @@ class zkMachine(models.Model):
                         attend_id = False
                         print(employee_id.name, date, date1, attendance.punch)
                         print("---------")
+                        print(date)
+                        # db_import_time = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+                        # print(db_import_time)
+                        # print(date(2021,10,1))
+
                         if not attendance.punch:
                             attendance_id = attendance_obj.search(
                                 [('employee_id', '=', employee_id.id), ('check_in', '=', str(date))])
@@ -208,30 +213,30 @@ class zkMachine(models.Model):
                                     print('ddddddddddd')
                                     attend_id = attendance_obj.create({'check_in': date, 'employee_id': employee_id.id})
 
-                        if attendance.punch:
-                            attendance_id = attendance_obj.search(
-                                [('employee_id', '=', employee_id.id), ('check_out', '=', str(date))])
-                            if not attendance_id:
-                                attendance_ids = attendance_obj.search(
-                                    [('employee_id', '=', employee_id.id), ('check_in', '<', str(date))],
-                                    order='check_in')
-                                if attendance_ids:
-                                    found = False
-                                    for att in reversed(attendance_ids):
-                                        if datetime.datetime.strptime(str(att.check_in),
-                                                                      '%Y-%m-%d %H:%M:%S').date() == datetime.datetime.strptime(
-                                                str(date), '%Y-%m-%d %H:%M:%S').date():
-                                            att.write({'check_out': date})
-                                            found = True
-                                            break
-                                        attendance_id = attendance_obj.search(
-                                            [('employee_id', '=', employee_id.id), ('check_in', '=', str(date))])
-                                        if not attendance_id:
-                                            attend_id = attendance_obj.create(
-                                                {'check_in': date, 'check_out': date, 'employee_id': employee_id.id})
-                                else:
-                                    attend_id = attendance_obj.create(
-                                        {'check_out': date, 'employee_id': employee_id.id})
+                        # if attendance.punch:
+                        #     attendance_id = attendance_obj.search(
+                        #         [('employee_id', '=', employee_id.id), ('check_out', '=', str(date))])
+                        #     if not attendance_id:
+                        #         attendance_ids = attendance_obj.search(
+                        #             [('employee_id', '=', employee_id.id), ('check_in', '<', str(date))],
+                        #             order='check_in')
+                        #         if attendance_ids:
+                        #             found = False
+                        #             for att in reversed(attendance_ids):
+                        #                 if datetime.datetime.strptime(str(att.check_in),
+                        #                                               '%Y-%m-%d %H:%M:%S').date() == datetime.datetime.strptime(
+                        #                         str(date), '%Y-%m-%d %H:%M:%S').date():
+                        #                     att.write({'check_out': date})
+                        #                     found = True
+                        #                     break
+                        #                 attendance_id = attendance_obj.search(
+                        #                     [('employee_id', '=', employee_id.id), ('check_in', '=', str(date))])
+                        #                 if not attendance_id:
+                        #                     attend_id = attendance_obj.create(
+                        #                         {'check_in': date, 'check_out': date, 'employee_id': employee_id.id})
+                        #         else:
+                        #             attend_id = attendance_obj.create(
+                        #                 {'check_out': date, 'employee_id': employee_id.id})
                         print(attend_id)
             except Exception as e:
                 raise UserError('The connection has not been achieved: %s' % (e))
